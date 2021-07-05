@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>428943322847-oldq4aa4k8tgelr1i2j5s5dotdrb9c0m.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.428943322847-oldq4aa4k8tgelr1i2j5s5dotdrb9c0m</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>428943322847-39rd9uohcghso99o7bjf1h30g1enjul2.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAm2Kx1sUXPW-lhL9Kl_eAP0NaEFougiKY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>428943322847</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.forReturn.me</string>
+	<key>PROJECT_ID</key>
+	<string>return-me-f6f09</string>
+	<key>STORAGE_BUCKET</key>
+	<string>return-me-f6f09.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:428943322847:ios:57759bdb2c114b2d3e436a</string>
+</dict>
+</plist>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>428943322847-oldq4aa4k8tgelr1i2j5s5dotdrb9c0m.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.428943322847-oldq4aa4k8tgelr1i2j5s5dotdrb9c0m</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>428943322847-39rd9uohcghso99o7bjf1h30g1enjul2.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAm2Kx1sUXPW-lhL9Kl_eAP0NaEFougiKY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>428943322847</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.forReturn.me</string>
+	<key>PROJECT_ID</key>
+	<string>return-me-f6f09</string>
+	<key>STORAGE_BUCKET</key>
+	<string>return-me-f6f09.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:428943322847:ios:57759bdb2c114b2d3e436a</string>
+</dict>
+</plist>

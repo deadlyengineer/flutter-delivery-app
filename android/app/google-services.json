@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "428943322847",
+    "project_id": "return-me-f6f09",
+    "storage_bucket": "return-me-f6f09.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:428943322847:android:ec7ea2a85245e0543e436a",
+        "android_client_info": {
+          "package_name": "com.forReturn.me"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "428943322847-mkg0s4vc3s2kc0aou1s9gvmrf72af6jv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.forReturn.me",
+            "certificate_hash": "7d70b39ab85d21736c5364f24b1f830575b8a5e5"
+          }
+        },
+        {
+          "client_id": "428943322847-se2s7k4d5iqmb205v165qvuk2vuflsa2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAQbdwSgRY04jvttU2-dfJiwGyFHBqRe0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "428943322847-se2s7k4d5iqmb205v165qvuk2vuflsa2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "428943322847-iiko73c766c9r282p14l2ku0sdq0bcjc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "four.return.me"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

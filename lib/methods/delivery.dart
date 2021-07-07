@@ -105,6 +105,7 @@ Future<String> createDelivery() async {
           ? pickUpDatetime.toUtc().toIso8601String()
           : "none",
       'noteToDriver': noteToDriver,
+      'totalPrice': realPrice,
       'productId': productId
     }
   });

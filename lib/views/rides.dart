@@ -233,18 +233,31 @@ class _RidesState extends State<Rides> {
                                 children: [
                                   Text(orders[index].dropOffEta),
                                   SizedBox(
+                                    height: 8.0,
+                                  ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey[50],
+                                        boxShadow: <BoxShadow>[
+                                          BoxShadow(
+                                              spreadRadius: 2.0,
+                                              blurRadius: 2.0,
+                                              color: Colors.grey[100])
+                                        ]),
                                     width: double.infinity,
                                     height: 200.0,
                                     child: WebView(
-                                      initialUrl: 'https://flutter.dev',
+                                      initialUrl: orders[index].trackingUrl,
                                       javascriptMode:
                                           JavascriptMode.unrestricted,
                                       onProgress: (int progress) {
                                         print(
                                             "WebView is loading (Progress: $progress%)");
                                       },
+                                      gestureNavigationEnabled: true,
                                     ),
                                   ),
+                                  SizedBox(height: 8.0),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -260,11 +273,14 @@ class _RidesState extends State<Rides> {
                                       Text(
                                         'Price',
                                         style: TextStyle(
-                                          color: Colors.grey[500],
+                                          color: Colors.grey[700],
                                           fontSize: 15.0,
                                         ),
                                       )
                                     ],
+                                  ),
+                                  SizedBox(
+                                    height: 8.0,
                                   ),
                                   Row(
                                     mainAxisAlignment:
@@ -277,13 +293,16 @@ class _RidesState extends State<Rides> {
                                         children: [
                                           Icon(
                                             Icons.location_on_outlined,
-                                            size: 15.0,
+                                            size: 30.0,
+                                            color: Colors.blue[700],
                                           ),
-                                          Text(orders[index].status)
+                                          Text(
+                                              '''${orders[index].pickUpAddress.split(',')[0]}-
+${orders[index].dropOffAddress.split(',')[0]}'''),
                                         ],
                                       ),
                                       Text(
-                                        "${orders[index].fee} ${orders[index].currency}",
+                                        "${(double.parse(orders[index].fee) / 100).toStringAsFixed(2)} ${orders[index].currency.toUpperCase()}",
                                         style: TextStyle(
                                           fontSize: 18.0,
                                           fontWeight: FontWeight.bold,

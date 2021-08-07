@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.forReturn.me">
-   <application
-        android:label="return_me"
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <application
+        android:label="4return me"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
@@ -43,7 +44,7 @@
             android:value="sandbox-sq0idb-qfqa3n6oNDRfsMJRfzGU7Q"/>
 
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCHU6zv0bVew2IxQFbR47v3KWpLyT9Ea3c"/>
+            android:value="AIzaSyAw1fyGRBAToeC7lgO-TjIi45hLcu_eBDk"/>
 
     </application>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />

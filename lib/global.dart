@@ -12,35 +12,35 @@ final square_url = Uri.https(API_URL, "/square/process-card.php");
 final delivery_url = Uri.https(API_URL, "/api/createDelivery.php");
 
 // userInfo
-String firstName;
-String lastName;
-String email;
-String password;
-String userId;
-String phoneNumber;
+String firstName = "";
+String lastName = "";
+String email = "";
+String password = "";
+String userId = "";
+String phoneNumber = "";
 
 // states
-String pickUpName;
-String pickUpStreet;
-String pickUpCity;
-String pickUpState;
-String pickUpZipcode;
-String pickUpAddress;
+String pickUpName = "";
+String pickUpStreet = "";
+String pickUpCity = "";
+String pickUpState = "";
+String pickUpZipcode = "";
+String pickUpAddress = "";
 Marker pickUpMarker;
-double pickUpLat;
-double pickUpLng;
-String pickUpPhoneNumber;
+double pickUpLat = 0;
+double pickUpLng = 0;
+String pickUpPhoneNumber = "";
 
-String dropOffName;
+String dropOffName = "";
 String dropOffAddress = "";
-String dropOffStreet;
-String dropOffCity;
-String dropOffState;
-String dropOffZipcode;
+String dropOffStreet = "";
+String dropOffCity = "";
+String dropOffState = "";
+String dropOffZipcode = "";
 Marker dropOffMarker;
-double dropOffLng;
-double dropOffLat;
-String dropOffPhoneNumber;
+double dropOffLng = 0.0;
+double dropOffLat = 0.0;
+String dropOffPhoneNumber = "";
 
 String noteToDriver;
 DateTime pickUpDatetime;
@@ -56,12 +56,12 @@ Map<PolylineId, Polyline> polylines = {};
 
 // delivery quote
 String realPrice = '10.0';
-String totalPrice;
-String deliveryPrice;
-String feeTax;
-String feeService;
-String quoteId;
-String dropOffEta;
+String totalPrice = "";
+String deliveryPrice = "";
+String feeTax = "";
+String feeService = "";
+String quoteId = "";
+String dropOffEta = "";
 bool closekeyboard = true;
 
 String item = "";

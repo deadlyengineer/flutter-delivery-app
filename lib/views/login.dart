@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:auth_buttons/auth_buttons.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:return_me/methods/user.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -16,12 +17,14 @@ class _LoginScreenState extends State<LoginScreen> {
   String password;
   bool _isError;
   bool _isLoading;
+  bool _validate;
 
   @override
   void initState() {
     super.initState();
     _isError = false;
     _isLoading = false;
+    _validate = true;
     email = '';
     password = '';
   }
@@ -124,6 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             fontWeight: FontWeight.bold,
                             color: Color.fromRGBO(137, 146, 164, 1),
                           ),
+                          errorText: (_validate) ? null : 'Please input valid email address.'
                         ),
                         style: TextStyle(
                           height: 1.7,
@@ -187,6 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         padding: const EdgeInsets.only(top: 5.0),
                         child: Container(
                           decoration: BoxDecoration(
+                            color: Color.fromRGBO(255, 246, 246, 1),
                             borderRadius: BorderRadius.circular(5.0),
                             border: Border.all(color: Colors.red),
                           ),
@@ -202,7 +207,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                               Container(
-                                color: Color.fromRGBO(255, 246, 246, 1),
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 10.0),
                                 width: width - 100,
@@ -210,7 +214,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   'Your email or password are incorrect. Please try again!',
                                   style: TextStyle(
                                     color: Colors.red,
-                                    fontSize: 15.0,
+                                    fontSize: 13.0,
                                   ),
                                 ),
                               ),
@@ -243,11 +247,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: double.infinity,
                     child: (_isLoading == false)
                         ? TextButton(
-                            onPressed: () {
-                              setState(() {
-                                _isLoading = true;
+                            onPressed: () async {
+                              await validate().then((result) {
+                                if(result == true) {
+                                  setState(() {
+                                    _isLoading = true;
+                                  });
+                                  _login();
+                                }
                               });
-                              _login();
                             },
                             child: Text(
                               'Log in',
@@ -376,6 +384,19 @@ class _LoginScreenState extends State<LoginScreen> {
         print('Wrong password provided for that user.');
       }
     }
+  }
+
+  Future<bool> validate() {
+    if(!EmailValidator.validate(email)) {
+      setState(() {
+        _validate = false;
+      });
+      return Future.value(false);
+    }
+    setState(() {
+      _validate = true;
+    });
+    return Future.value(true);
   }
 
   // Sign in with google account

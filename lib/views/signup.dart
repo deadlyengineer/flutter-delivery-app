@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:http/http.dart' as http;
+import 'package:email_validator/email_validator.dart';
 import 'package:return_me/methods/alertDialog.dart';
 
 import '../global.dart';
@@ -13,16 +14,18 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  String countryCode;
-  String phoneNumber;
+  String countryCode = "";
+  String phoneNumber = "";
   String initialCountry = "US";
-  String addressLine1;
-  String addressLine2;
-  String districtLevel1;
-  String postalCode;
-  String locality;
+  String addressLine1 = "";
+  String addressLine2 = "";
+  String districtLevel1 = "";
+  String postalCode = "";
+  String locality = "";
   PhoneNumber number = PhoneNumber(isoCode: 'US');
   bool _isLoading;
+  bool _validate;
+  String _param;
 
   @override
   void initState() {
@@ -138,6 +141,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                   fontWeight: FontWeight.bold,
                                   color: Color.fromRGBO(137, 146, 164, 1),
                                 ),
+                                errorText: (_param == 'firstName') ? "Input valid firstname" : null
                               ),
                               style: TextStyle(
                                 height: 1.7,
@@ -189,6 +193,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                   fontWeight: FontWeight.bold,
                                   color: Color.fromRGBO(137, 146, 164, 1),
                                 ),
+                                errorText: (_param == 'lastName') ? "Input valid lastname" : null
                               ),
                               style: TextStyle(
                                 height: 1.7,
@@ -235,6 +240,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             fontWeight: FontWeight.bold,
                             color: Color.fromRGBO(137, 146, 164, 1),
                           ),
+                          errorText: (_param == 'email') ? "Input valid email" : null
                         ),
                         style: TextStyle(
                           height: 1.7,
@@ -286,6 +292,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         fontWeight: FontWeight.bold,
                         color: Color.fromRGBO(137, 146, 164, 1),
                       ),
+                      errorText: (_param == 'phoneNumber') ? "Input phonenumber" : null
                     ),
                     spaceBetweenSelectorAndTextField: 8,
                   ),
@@ -322,6 +329,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             fontWeight: FontWeight.bold,
                             color: Color.fromRGBO(137, 146, 164, 1),
                           ),
+                          errorText: (_param == 'addressLine1') ? "Input valid address" : null
                         ),
                         style: TextStyle(
                           height: 1.7,
@@ -365,6 +373,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             fontWeight: FontWeight.bold,
                             color: Color.fromRGBO(137, 146, 164, 1),
                           ),
+                          errorText: (_param == 'firstName') ? "Input valid address" : null
                         ),
                         style: TextStyle(
                           height: 1.7,
@@ -408,6 +417,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             fontWeight: FontWeight.bold,
                             color: Color.fromRGBO(137, 146, 164, 1),
                           ),
+                          errorText: (_param == 'locality') ? "Input valid city" : null
                         ),
                         style: TextStyle(
                           height: 1.7,
@@ -451,6 +461,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             fontWeight: FontWeight.bold,
                             color: Color.fromRGBO(137, 146, 164, 1),
                           ),
+                          errorText: (_param == 'districtLevel1') ? "Input valid state" : null
                         ),
                         style: TextStyle(
                           height: 1.7,
@@ -493,6 +504,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             fontWeight: FontWeight.bold,
                             color: Color.fromRGBO(137, 146, 164, 1),
                           ),
+                          errorText: (_param == 'postalCode') ? "Input valid zipcode" : null
                         ),
                         style: TextStyle(
                           height: 1.7,
@@ -536,6 +548,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             fontWeight: FontWeight.bold,
                             color: Color.fromRGBO(137, 146, 164, 1),
                           ),
+                          errorText: (_param == 'password') ? "Password must be more than 8 letters" : null
                         ),
                         style: TextStyle(
                           height: 1.7,
@@ -585,11 +598,15 @@ class _SignupScreenState extends State<SignupScreen> {
                     width: double.infinity,
                     child: (_isLoading == false)
                         ? TextButton(
-                            onPressed: () {
-                              setState(() {
-                                _isLoading = true;
+                            onPressed: () async {
+                              await validate().then((result) {
+                                if(result == true) {
+                                  setState(() {
+                                    _isLoading = true;
+                                  });
+                                  _signup();
+                                }
                               });
-                              _signup();
                             },
                             child: Text(
                               'Sign up',
@@ -625,6 +642,72 @@ class _SignupScreenState extends State<SignupScreen> {
         ),
       ),
     );
+  }
+
+  Future<bool> validate() {
+    if(firstName == '' || firstName != '' && !RegExp(r"[a-z A-Z]").hasMatch(firstName)) {
+      setState(() {
+        _param = 'firstName';
+      });
+      return Future.value(false);
+    }
+    if(lastName == '' || lastName != '' && !RegExp(r"[a-z A-Z]").hasMatch(lastName)) {
+      setState(() {
+        _param = 'lastName';
+      });
+      return Future.value(false);
+    }
+    if(email == '' || email != '' && !EmailValidator.validate(email)) {
+      setState(() {
+        _param = 'email';
+      });
+      return Future.value(false);
+    }
+    if(phoneNumber == '') {
+      setState(() {
+        _param = 'email';
+      });
+      return Future.value(false);
+    }
+    if(addressLine1 == '' || addressLine1 != '' && !RegExp(r"[a-z A-Z0-9]").hasMatch(addressLine1)) {
+      setState(() {
+        _param = 'addressLine1';
+      });
+      return Future.value(false);
+    }
+    if(addressLine2 != '' && !RegExp(r"[a-z A-Z0-9]").hasMatch(addressLine2)) {
+      setState(() {
+        _param = 'addressLine2';
+      });
+      return Future.value(false);
+    }
+    if(districtLevel1 == '' || districtLevel1 != '' && !RegExp(r"[a-z A-Z0-9]").hasMatch(districtLevel1)) {
+      setState(() {
+        _param = 'districtLevel1';
+      });
+      return Future.value(false);
+    }
+    if(locality == '' || locality != '' && !RegExp(r"[a-z A-Z0-9]").hasMatch(locality)) {
+      setState(() {
+        _param = 'locality';
+      });
+      return Future.value(false);
+    }
+    if(postalCode == '' || postalCode != '' && !RegExp(r"[a-z A-Z0-9]").hasMatch(postalCode)) {
+      setState(() {
+        _param = 'postalCode';
+      });
+      return Future.value(false);
+    }
+    if(password.length < 8) {
+      setState(() {
+        _param = 'password';
+      });
+      return Future.value(false);
+    }
+    setState(() {
+      _param = '';
+    });
   }
 
   // Sign up to return.me

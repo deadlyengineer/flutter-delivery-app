@@ -275,8 +275,8 @@ class _AutoCompleteState extends PlacesAutocompleteState {
                         : Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 16.0),
-                            child: ListView.builder(
-                              itemCount: 6,
+                            child: (addresses.length > 0) ? ListView.builder(
+                              itemCount: addresses.length,
                               itemBuilder: (context, index) {
                                 return Container(
                                   margin: const EdgeInsets.only(top: 5.0),
@@ -348,6 +348,14 @@ class _AutoCompleteState extends PlacesAutocompleteState {
                                   ),
                                 );
                               },
+                            ) : Container(
+                              width: double.infinity,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text('No nearby places found.')
+                                ],
+                              )
                             ),
                           ),
                   )
@@ -380,58 +388,42 @@ class _AutoCompleteState extends PlacesAutocompleteState {
       apiKey: kGoogleApiKey,
     );
     Location pickUpLocation = Location(lat: pickUpLat, lng: pickUpLng);
+    print(pickUpLocation);
+    var responses = [];
     final PlacesSearchResponse fedExResults = await _places
         .searchNearbyWithRankBy(pickUpLocation, 'distance', keyword: "FedEx")
         .timeout(Duration(seconds: 15), onTimeout: () {
       print("FedEx timeout");
       return null;
     });
+    print(fedExResults.results);
+    if(fedExResults != null)
+      responses = responses + fedExResults.results;
     final PlacesSearchResponse upsResults = await _places
         .searchNearbyWithRankBy(pickUpLocation, 'distance', keyword: 'UPS')
         .timeout(Duration(seconds: 15), onTimeout: () {
       print("UPS timeout");
       return null;
     });
+    if(upsResults != null)
+      responses = responses + upsResults.results;
     final PlacesSearchResponse uspsResults = await _places
         .searchNearbyWithRankBy(pickUpLocation, 'distance', keyword: 'USPS')
         .timeout(Duration(seconds: 15), onTimeout: () {
       print("USPS timeout");
       return null;
     });
-
-    for (var i = 0; i < 2; i++) {
-      double fedExLat = fedExResults.results[i].geometry.location.lat;
-      double fedExLng = fedExResults.results[i].geometry.location.lng;
-      String fedExAd;
-      await getAddressFromCoordinate(LatLng(fedExLat, fedExLng))
+    if(uspsResults != null)
+      responses = responses + uspsResults.results;
+    for (var i = 0; i < responses.length; i++) {
+      double lat = responses[i].geometry.location.lat;
+      double lng = responses[i].geometry.location.lng;
+      await getAddressFromCoordinate(LatLng(lat, lng))
           .then((String value) {
-        fedExAd = value;
+            latLng.add(LatLng(lat, lng));
+            addresses.add(value);
+            names.add(responses[i].name);
       });
-      latLng.add(LatLng(fedExLat, fedExLng));
-      addresses.add(fedExAd);
-      names.add(fedExResults.results[i].name);
-
-      double upsLat = upsResults.results[i].geometry.location.lat;
-      double upsLng = upsResults.results[i].geometry.location.lng;
-      String upsAd;
-      await getAddressFromCoordinate(LatLng(upsLat, upsLng))
-          .then((String value) {
-        upsAd = value;
-      });
-      latLng.add(LatLng(upsLat, upsLng));
-      addresses.add(upsAd);
-      names.add(upsResults.results[i].name);
-
-      double uspsLat = uspsResults.results[i].geometry.location.lat;
-      double uspsLng = uspsResults.results[i].geometry.location.lng;
-      String uspsAd;
-      await getAddressFromCoordinate(LatLng(uspsLat, uspsLng))
-          .then((String value) {
-        uspsAd = value;
-      });
-      latLng.add(LatLng(uspsLat, uspsLng));
-      addresses.add(uspsAd);
-      names.add(uspsResults.results[i].name);
     }
     setState(() {
       latLng = latLng;

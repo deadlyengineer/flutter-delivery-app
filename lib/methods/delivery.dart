@@ -6,9 +6,9 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:return_me/models/order.dart';
 import 'package:return_me/global.dart';
 
-Future<bool> getDeliveryQuote() async {
+Future<String> getDeliveryQuote() async {
   print("getDeliveryQuote");
-  bool result = false;
+  String result = "";
   var body = jsonEncode({
     "id": "getDeliveryQuote",
     "model": {
@@ -41,12 +41,12 @@ Future<bool> getDeliveryQuote() async {
       initializeDateFormatting('en_US', null).then((_) {
         dropOffEta = DateFormat.jm().format(dateTime);
       });
-      result = true;
+      result = "";
     } else {
-      result = false;
+      result = response['msg'];
     }
   } else {
-    result = false;
+    result = 'Something went wrong. Try again.';
   }
   return result;
 }

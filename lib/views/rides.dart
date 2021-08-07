@@ -15,6 +15,9 @@ class Rides extends StatefulWidget {
 class _RidesState extends State<Rides> {
   String _tab;
   List<Order> orders;
+  List<Order> upComingOrders;
+  List<Order> completedOrders;
+  List<Order> canceledOrders;
 
   @override
   void initState() {
@@ -22,14 +25,34 @@ class _RidesState extends State<Rides> {
     if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
     _tab = 'upComing';
     orders = [];
+    upComingOrders = [];
+    completedOrders = [];
+    canceledOrders = [];
     _getUpComingRides();
   }
 
   void _getUpComingRides() async {
     print("GET RIDES");
     await getUpComingDelivery().then((deliveries) {
+        orders = [...deliveries];
+        for(var i = 0; i < orders.length; i++) {
+          print(orders[i].status);
+          switch (orders[i].status) {
+            case 'pending':
+            case 'pickup':
+              upComingOrders.add(orders[i]);
+              break;
+            case 'delivered':
+              completedOrders.add(orders[i]);
+              break;
+            case 'canceled':
+              canceledOrders.add(orders[i]);
+              break;
+            default:
+          }
+        }
       setState(() {
-        orders = [...orders, ...deliveries];
+        orders = upComingOrders;
       });
     });
   }
@@ -116,6 +139,7 @@ class _RidesState extends State<Rides> {
                               onPressed: () {
                                 setState(() {
                                   _tab = 'upComing';
+                                  orders = upComingOrders;
                                 });
                               },
                               child: Text(
@@ -134,6 +158,7 @@ class _RidesState extends State<Rides> {
                               onPressed: () {
                                 setState(() {
                                   _tab = 'completed';
+                                  orders = completedOrders;
                                 });
                               },
                               child: Text(
@@ -152,6 +177,7 @@ class _RidesState extends State<Rides> {
                               onPressed: () {
                                 setState(() {
                                   _tab = 'canceled';
+                                  orders = canceledOrders;
                                 });
                               },
                               child: Text(

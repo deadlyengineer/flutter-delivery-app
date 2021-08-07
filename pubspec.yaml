@@ -51,6 +51,7 @@ dependencies:
   square_in_app_payments: ^1.7.1
   google_sign_in: ^5.0.4
   webview_flutter: ^2.0.9
+  email_validator: ^2.0.1
 
 dev_dependencies:
   flutter_test:

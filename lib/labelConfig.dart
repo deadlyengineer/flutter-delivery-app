@@ -4,7 +4,7 @@ const app_logo_url = 'https://4return.me/image/logo.png';
 const app_base_url = "https://4return.me/api/form.php";
 const app_debug = true;
 
-const APIKey = "AIzaSyCHU6zv0bVew2IxQFbR47v3KWpLyT9Ea3c";
+const APIKey = "AIzaSyAw1fyGRBAToeC7lgO-TjIi45hLcu_eBDk";
 
 // square sandbox
 // const SQUARE_SANDBOX_APP_ID = "sandbox-sq0idb-y66gyDn3G1JfYTxHm8SA_g";

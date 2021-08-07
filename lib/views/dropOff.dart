@@ -169,17 +169,17 @@ class _DropOffState extends State<DropOff> {
                                           });
                                           await drawRoute();
                                           await getDeliveryQuote()
-                                              .then((bool quoteStatus) {
+                                              .then((String result) {
                                             setState(() {
                                               _isLoading = false;
                                             });
-                                            if (quoteStatus == true)
+                                            result = "";
+                                            if (result == "")
                                               Navigator.pushNamed(
                                                   context, '/booking');
                                             else {
-                                              String title = "Unknown Error!";
-                                              String content =
-                                                  "Please try again after a few minutes.";
+                                              String title = "Error!";
+                                              String content = result;
                                               alertDialog(
                                                   context: context,
                                                   title: title,
